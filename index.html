@@ -3,61 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Hub</title>
+    <title>My Executive Dashboard</title>
     <style>
-        /* ปรับสไตล์ให้เรียบง่ายและดูดีในทุกอุปกรณ์ */
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background: #ffffff; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --base-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
-        .container { 
-            width: 90%; 
-            max-width: 350px; 
-            text-align: center; 
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: var(--text-main);
         }
-        h1 { font-size: 1.2rem; color: #888; margin-bottom: 30px; letter-spacing: 1px; }
+
+        .container {
+            width: 100%;
+            max-width: 480px; /* ปรับความกว้างให้พอดีสายตา */
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+        p.subtitle {
+            font-size: 0.875rem;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        /* --- Zone 1: Main Grid --- */
+        .section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-sub);
+            font-weight: 700;
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 คอลัมน์ */
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: var(--base-shadow);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
         
-        .link-item { 
-            display: block; 
-            padding: 18px; 
-            margin-bottom: 15px; 
-            background: #f8f9fa; 
-            color: #333; 
-            text-decoration: none; 
-            border-radius: 10px; 
-            font-weight: 500; 
-            transition: all 0.2s;
-            border: 1px solid #eee;
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .card-desc {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-top: 2px;
         }
 
-        .link-item:hover { 
-            background: #000; 
-            color: #fff; 
+        /* สีประจำแอป */
+        .notion-bg { background-color: #f0f0f0; color: #000; }
+        .todoist-bg { background-color: #fff0f0; color: #e44232; }
+        .calendar-bg { background-color: #eff6ff; color: #2563eb; }
+
+        /* --- Zone 2: Secondary List --- */
+        .list-group {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--base-shadow);
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        /* ส่วนของไอคอน (ถ้าไม่ใช้สามารถลบออกหรือคอมเม้นได้) */
-        .icon { margin-right: 10px; }
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background 0.15s;
+        }
+
+        .list-item:last-child { border-bottom: none; }
+        .list-item:hover { background-color: #f9fafb; }
+
+        .list-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            color: var(--text-sub);
+        }
+        
+        .list-text {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            flex-grow: 1;
+        }
+
+        .list-arrow {
+            color: #d1d5db;
+            width: 16px;
+        }
+
+        /* SVG Icons */
+        svg { width: 24px; height: 24px; stroke-width: 2; }
+
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>COMMAND CENTER</h1>
+    <header>
+        <h1>DASHBOARD</h1>
+        <p class="subtitle">Focus on what matters</p>
+    </header>
 
-    <a href="https://ticktick.com" target="_blank" class="link-btn link-item">
-        <span class="icon">✅</span> TickTick (To-Do)
-    </a>
+    <div>
+        <div class="section-title">Workflow</div>
+        <div class="grid-container">
+            <a href="https://www.notion.so/Habit-Tracker-2224cd2afe7e80b59785df36808db63b" class="card" target="_blank">
+                <div class="icon-box notion-bg">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div class="card-title">Habit Tracker</div>
+                <div class="card-desc">วินัย & พัฒนาตนเอง</div>
+            </a>
 
-    <a href="https://notion.so" target="_blank" class="link-btn link-item">
-        <span class="icon">📓</span> Notion (Database)
-    </a>
+            <a href="https://app.todoist.com/app/today" class="card" target="_blank">
+                <div class="icon-box todoist-bg">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                </div>
+                <div class="card-title">Todoist</div>
+                <div class="card-desc">สิ่งที่ต้องทำวันนี้</div>
+            </a>
 
+            <a href="https://www.notion.so/Goal-Setting-2904cd2afe7e81869d2fe2f5c44615aa" class="card" target="_blank">
+                <div class="icon-box notion-bg">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-8a2 2 0 012-2h10a2 2 0 012 2v8m0-8a2 2 0 00-2-2H5a2 2 0 00-2 2zm9-13a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1h-2a1 1 0 01-1-1V8z"></path></svg>
+                </div>
+                <div class="card-title">Goals</div>
+                <div class="card-desc">เป้าหมายระยะยาว</div>
+            </a>
+
+            <a href="https://calendar.google.com/calendar/u/0/r/month" class="card" target="_blank">
+                <div class="icon-box calendar-bg">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <div class="card-title">Calendar</div>
+                <div class="card-desc">ตารางเวลา</div>
+            </a>
+        </div>
     </div>
+
+    <div>
+        <div class="section-title">Tracking & Reports</div>
+        <div class="list-group">
+            <a href="https://docs.google.com/spreadsheets/d/1jbqu02Lx5ahdVY0g-1JPHbDC59N0AiqDL3IZs2PUTmI/edit?gid=1871900456#gid=1871900456" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                <span class="list-text">รายงานผลทำโจทย์</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1mEyVRhmj-Pfxun-b1ormT76igjNrSdDx5OCjZBbhLn4/edit?gid=34336380#gid=34336380" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="list-text">ติดตามงบประมาณ</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1Wfq1ToaVrnyggKOJh4in2C_mG5FzNwCkYQT6KHLj6vU/edit#gid=0" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span class="list-text">ระบบติดตามการเรียนรู้</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <div class="section-title">Input & Actions</div>
+        <div class="list-group">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0yIrObGdfYoIuU02uBzAbxq9b0divesMVBSLZbOSTlM92cw/viewform" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                <span class="list-text">กรอกผลการทำโจทย์ (Form)</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+
+            <a href="https://ankiweb.net/decks" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                <span class="list-text">Anki (ช่วยจำ)</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+        </div>
+    </div>
+    
+    <div style="height: 20px;"></div>
+
+</div>
 
 </body>
 </html>
