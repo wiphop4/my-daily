@@ -6,12 +6,13 @@
     <title>My Executive Dashboard</title>
     <style>
         :root {
-            --bg-color: #f3f4f6;
+            --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --text-main: #1f2937;
             --text-sub: #6b7280;
-            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --base-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --accent-color: #374151; /* สีเข้มสำหรับหัวข้อ */
+            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --base-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
         }
 
         body {
@@ -27,69 +28,72 @@
 
         .container {
             width: 100%;
-            max-width: 480px; /* ปรับความกว้างให้พอดีสายตา */
+            max-width: 480px;
             display: flex;
             flex-direction: column;
             gap: 24px;
+            padding-bottom: 40px;
         }
 
         /* --- Header --- */
         header {
             text-align: center;
-            margin-bottom: 10px;
             margin-top: 20px;
+            margin-bottom: 10px;
         }
         h1 {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--text-main);
-            margin: 0;
-            letter-spacing: -0.025em;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
         p.subtitle {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--text-sub);
             margin-top: 4px;
         }
 
         /* --- Zone 1: Main Grid --- */
         .section-title {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             color: var(--text-sub);
             font-weight: 700;
-            margin-bottom: 8px;
-            padding-left: 4px;
+            margin-bottom: 10px;
+            padding-left: 6px;
+            opacity: 0.8;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 คอลัมน์ */
-            gap: 16px;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
+            padding: 18px;
+            border-radius: 14px;
             text-decoration: none;
             box-shadow: var(--base-shadow);
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             box-shadow: var(--hover-shadow);
+            border-color: rgba(0,0,0,0.08);
         }
 
         .icon-box {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -98,35 +102,35 @@
         }
         
         .card-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-main);
         }
         
         .card-desc {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-sub);
             margin-top: 2px;
         }
 
-        /* สีประจำแอป */
-        .notion-bg { background-color: #f0f0f0; color: #000; }
-        .todoist-bg { background-color: #fff0f0; color: #e44232; }
-        .calendar-bg { background-color: #eff6ff; color: #2563eb; }
+        /* Colors */
+        .notion-bg { background-color: #f1f1f1; color: #222; }
+        .todoist-bg { background-color: #fff1f0; color: #d1453b; }
+        .calendar-bg { background-color: #eff6ff; color: #3b82f6; }
 
-        /* --- Zone 2: Secondary List --- */
+        /* --- Zone 2: List --- */
         .list-group {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
             box-shadow: var(--base-shadow);
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .list-item {
             display: flex;
             align-items: center;
-            padding: 16px 20px;
+            padding: 14px 18px;
             text-decoration: none;
             border-bottom: 1px solid #f3f4f6;
             transition: background 0.15s;
@@ -136,25 +140,50 @@
         .list-item:hover { background-color: #f9fafb; }
 
         .list-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            margin-right: 14px;
             color: var(--text-sub);
         }
         
         .list-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-main);
             flex-grow: 1;
+            font-weight: 500;
         }
 
         .list-arrow {
-            color: #d1d5db;
-            width: 16px;
+            color: #e5e7eb;
+            width: 14px;
         }
 
         /* SVG Icons */
-        svg { width: 24px; height: 24px; stroke-width: 2; }
+        svg { width: 22px; height: 22px; stroke-width: 2; }
+
+        /* --- Footer Quote --- */
+        .quote-container {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 30px;
+        }
+        
+        .quote-pali {
+            font-family: "Sarabun", "Thonburi", sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #4b5563;
+            letter-spacing: 0.02em;
+            margin-bottom: 6px;
+        }
+        
+        .quote-trans {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            font-weight: 300;
+            line-height: 1.5;
+        }
 
     </style>
 </head>
@@ -162,12 +191,12 @@
 
 <div class="container">
     <header>
-        <h1>DASHBOARD</h1>
-        <p class="subtitle">Focus on what matters</p>
+        <h1>Dashboard</h1>
+        <p class="subtitle">Management System</p>
     </header>
 
     <div>
-        <div class="section-title">Workflow</div>
+        <div class="section-title">Core Workflow</div>
         <div class="grid-container">
             <a href="https://www.notion.so/Habit-Tracker-2224cd2afe7e80b59785df36808db63b" class="card" target="_blank">
                 <div class="icon-box notion-bg">
@@ -204,8 +233,14 @@
     </div>
 
     <div>
-        <div class="section-title">Tracking & Reports</div>
+        <div class="section-title">Data & Tracking</div>
         <div class="list-group">
+            <a href="https://track.toggl.com/timer" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="list-text">Toggl Track (จับเวลาทำงาน)</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+
             <a href="https://docs.google.com/spreadsheets/d/1jbqu02Lx5ahdVY0g-1JPHbDC59N0AiqDL3IZs2PUTmI/edit?gid=1871900456#gid=1871900456" class="list-item" target="_blank">
                 <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                 <span class="list-text">รายงานผลทำโจทย์</span>
@@ -217,8 +252,8 @@
                 <span class="list-text">ติดตามงบประมาณ</span>
                 <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
             </a>
-
-            <a href="https://docs.google.com/spreadsheets/d/1Wfq1ToaVrnyggKOJh4in2C_mG5FzNwCkYQT6KHLj6vU/edit#gid=0" class="list-item" target="_blank">
+            
+             <a href="https://docs.google.com/spreadsheets/d/1Wfq1ToaVrnyggKOJh4in2C_mG5FzNwCkYQT6KHLj6vU/edit#gid=0" class="list-item" target="_blank">
                 <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 <span class="list-text">ระบบติดตามการเรียนรู้</span>
                 <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
@@ -227,8 +262,14 @@
     </div>
 
     <div>
-        <div class="section-title">Input & Actions</div>
+        <div class="section-title">Tools & Actions</div>
         <div class="list-group">
+            <a href="https://pomofocus.io/" class="list-item" target="_blank">
+                <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="list-text">Pomodoro (ตัวจับเวลาสมาธิ)</span>
+                <svg class="list-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0yIrObGdfYoIuU02uBzAbxq9b0divesMVBSLZbOSTlM92cw/viewform" class="list-item" target="_blank">
                 <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                 <span class="list-text">กรอกผลการทำโจทย์ (Form)</span>
@@ -243,7 +284,13 @@
         </div>
     </div>
     
-    <div style="height: 20px;"></div>
+    <div class="quote-container">
+        <div class="quote-pali">นะโม วิมุตตานัง นะโม วิมุตติยา</div>
+        <div class="quote-trans">
+            ขอนอบน้อมแด่ท่านผู้หลุดพ้นแล้ว (จากกิเลส) ทั้งหลาย <br>
+            และขอนอบน้อมแด่ธรรมอันหลุดพ้น (คือพระนิพพาน)
+        </div>
+    </div>
 
 </div>
 
