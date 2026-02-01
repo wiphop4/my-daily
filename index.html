@@ -3,35 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Daily Dashboard</title>
+    <title>My Final Chance Dashboard</title>
     <style>
         :root { --bg: #f8f9fa; --red: #ef4444; --card: #ffffff; --text: #1f2937; --sub: #6b7280; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; color: var(--text); }
         .container { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 20px; }
         
-        /* Countdown Area */
-        .countdown-card { background: #fee2e2; border: 1px solid #fecaca; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .days-left { font-size: 4.5rem; font-weight: 900; color: var(--red); line-height: 1; margin: 10px 0; }
-        .exam-label { font-size: 0.85rem; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 1px; }
+        /* Countdown Section */
+        .countdown-card { background: #fee2e2; border: 2px solid #fecaca; padding: 35px 20px; border-radius: 24px; text-align: center; box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.1); }
+        .exam-label { font-size: 0.9rem; font-weight: 800; color: #dc2626; text-transform: uppercase; letter-spacing: 1px; }
+        .days-left { font-size: 6rem; font-weight: 900; color: var(--red); line-height: 1; margin: 15px 0; }
+        .final-warning { font-size: 1.1rem; color: #b91c1c; font-weight: 800; margin-top: 5px; border-top: 1px solid #fca5a5; padding-top: 15px; display: inline-block; }
+        .date-info { font-size: 0.8rem; color: #b91c1c; margin-top: 8px; font-weight: 500; opacity: 0.7; }
 
-        /* Navigation Grid */
-        .section-header { font-size: 0.75rem; font-weight: 700; color: var(--sub); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; padding-left: 5px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .card { background: var(--card); padding: 18px; border-radius: 15px; text-decoration: none; color: inherit; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); transition: transform 0.2s; }
-        .card:hover { transform: translateY(-3px); }
+        /* Dashboard Grid */
+        .section-header { font-size: 0.75rem; font-weight: 700; color: var(--sub); text-transform: uppercase; letter-spacing: 0.05em; margin: 10px 0 8px 5px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .card { background: var(--card); padding: 18px; border-radius: 18px; text-decoration: none; color: inherit; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.02); transition: all 0.2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         .card b { display: block; font-size: 0.95rem; margin-bottom: 2px; }
         .card small { color: var(--sub); font-size: 0.75rem; }
 
         /* List Items */
-        .list-box { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .link-item { display: flex; align-items: center; padding: 16px; text-decoration: none; color: inherit; border-bottom: 1px solid #f3f4f6; font-size: 0.9rem; font-weight: 500; }
+        .list-box { background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .link-item { display: flex; align-items: center; padding: 16px; text-decoration: none; color: inherit; border-bottom: 1px solid #f3f4f6; font-size: 0.9rem; font-weight: 600; }
         .link-item:last-child { border-bottom: none; }
         .link-item:hover { background: #f9fafb; }
 
         /* Spiritual Footer */
-        .mantra-footer { margin-top: 40px; text-align: center; padding-top: 30px; border-top: 1px solid #e5e7eb; }
+        .mantra-footer { margin-top: 30px; text-align: center; padding-top: 25px; border-top: 1px solid #e5e7eb; }
         .pali-text { font-size: 1rem; font-weight: 600; color: #4b5563; margin-bottom: 8px; }
-        .translation { font-size: 0.75rem; color: #9ca3af; line-height: 1.6; font-weight: 300; }
+        .translation { font-size: 0.75rem; color: #9ca3af; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -40,26 +42,27 @@
     <div class="countdown-card">
         <div class="exam-label">เหลือเวลาสอบ A-LEVEL</div>
         <div class="days-left" id="display-days">--</div>
-        <div style="font-size: 0.8rem; color: #b91c1c; font-weight: 500;">ถึงวันที่ 14 มีนาคม 2569</div>
+        <div class="final-warning">"โอกาสครั้งสุดท้าย ต่อแต่นี้ไม่มีอีก"</div>
+        <div class="date-info">ถึงวันที่ 14 มีนาคม 2569</div>
     </div>
 
     <div>
-        <div class="section-header">Main Apps</div>
+        <div class="section-header">Workflow & Tools</div>
         <div class="grid">
-            <a href="[https://www.notion.so/Habit-Tracker-2224cd2afe7e80b59785df36808db63b](https://www.notion.so/Habit-Tracker-2224cd2afe7e80b59785df36808db63b)" class="card" target="_blank"><b>Habit Tracker</b><small>Notion</small></a>
-            <a href="[https://app.todoist.com/app/today](https://app.todoist.com/app/today)" class="card" target="_blank"><b>Todoist</b><small>Today's Tasks</small></a>
-            <a href="[https://www.notion.so/Goal-Setting-2904cd2afe7e81869d2fe2f5c44615aa](https://www.notion.so/Goal-Setting-2904cd2afe7e81869d2fe2f5c44615aa)" class="card" target="_blank"><b>Goal Setting</b><small>Long-term</small></a>
-            <a href="[https://calendar.google.com/calendar/u/0/r/month](https://calendar.google.com/calendar/u/0/r/month)" class="card" target="_blank"><b>Calendar</b><small>Schedule</small></a>
+            <a href="https://www.notion.so/Habit-Tracker-2224cd2afe7e80b59785df36808db63b" class="card" target="_blank"><b>Habit Tracker</b><small>วินัยรายวัน</small></a>
+            <a href="https://app.todoist.com/app/today" class="card" target="_blank"><b>Todoist</b><small>รายการวันนี้</small></a>
+            <a href="https://track.toggl.com/timer" class="card" target="_blank"><b>Toggl Track</b><small>จับเวลาจริง</small></a>
+            <a href="https://pomofocus.io/" class="card" target="_blank"><b>Pomodoro</b><small>ฝึกสมาธิ</small></a>
         </div>
     </div>
 
     <div>
-        <div class="section-header">Tracking & Reports</div>
+        <div class="section-header">Data & Reports</div>
         <div class="list-box">
-            <a href="[https://track.toggl.com/timer](https://track.toggl.com/timer)" class="link-item" target="_blank">⏱️ Toggl Track (จับเวลา)</a>
-            <a href="[https://docs.google.com/spreadsheets/d/1jbqu02Lx5ahdVY0g-1JPHbDC59N0AiqDL3IZs2PUTmI/edit?gid=1871900456#gid=1871900456](https://docs.google.com/spreadsheets/d/1jbqu02Lx5ahdVY0g-1JPHbDC59N0AiqDL3IZs2PUTmI/edit?gid=1871900456#gid=1871900456)" class="link-item" target="_blank">📊 รายงานผลทำโจทย์</a>
-            <a href="[https://docs.google.com/spreadsheets/d/1uvwc6GFj-rrINmQufnctclxj2epMyIIQmsCRDXQbzCo/edit?gid=34336380#gid=34336380](https://docs.google.com/spreadsheets/d/1uvwc6GFj-rrINmQufnctclxj2epMyIIQmsCRDXQbzCo/edit?gid=34336380#gid=34336380)" class="link-item" target="_blank">💰 ติดตามงบประมาณ (ใหม่)</a>
-            <a href="[https://pomofocus.io/](https://pomofocus.io/)" class="link-item" target="_blank">🍅 Pomofocus (สมาธิ)</a>
+            <a href="https://docs.google.com/spreadsheets/d/1jbqu02Lx5ahdVY0g-1JPHbDC59N0AiqDL3IZs2PUTmI/edit?gid=1871900456#gid=1871900456" class="link-item" target="_blank">📊 รายงานผลทำโจทย์</a>
+            <a href="https://docs.google.com/spreadsheets/d/1uvwc6GFj-rrINmQufnctclxj2epMyIIQmsCRDXQbzCo/edit?gid=34336380#gid=34336380" class="link-item" target="_blank">💰 ติดตามงบประมาณ</a>
+            <a href="https://docs.google.com/spreadsheets/d/1Wfq1ToaVrnyggKOJh4in2C_mG5FzNwCkYQT6KHLj6vU/edit#gid=0" class="link-item" target="_blank">📖 ติดตามการเรียนรู้</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0yIrObGdfYoIuU02uBzAbxq9b0divesMVBSLZbOSTlM92cw/viewform" class="link-item" target="_blank">📝 ส่งผลโจทย์ (Form)</a>
         </div>
     </div>
 
@@ -78,7 +81,7 @@
         const now = new Date();
         const diff = examDate - now;
         const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('display-days').innerText = diff > 0 ? days + " วัน" : "D-Day!";
+        document.getElementById('display-days').innerText = diff > 0 ? days + " วัน" : "D-DAY";
     }
     updateCountdown();
 </script>
