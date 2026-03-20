@@ -3,88 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Final Chance Dashboard</title>
+    <title>Morning & Lunch Kitchen</title>
     <style>
-        :root { --bg: #f8f9fa; --red: #ef4444; --card: #ffffff; --text: #1f2937; --sub: #6b7280; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; color: var(--text); }
-        .container { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 20px; }
+        :root { --accent: #d35400; --secondary: #27ae60; --bg: #f8f9fa; }
+        body { font-family: 'Sarabun', sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #333; }
+        .container { max-width: 550px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        .card { background: white; border-radius: 20px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         
-        /* Countdown Section */
-        .countdown-card { background: #fee2e2; border: 2px solid #fecaca; padding: 35px 20px; border-radius: 24px; text-align: center; box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.1); }
-        .exam-label { font-size: 0.9rem; font-weight: 800; color: #dc2626; text-transform: uppercase; letter-spacing: 1px; }
-        .days-left { font-size: 6rem; font-weight: 900; color: var(--red); line-height: 1; margin: 15px 0; }
-        .final-warning { font-size: 1.1rem; color: #b91c1c; font-weight: 800; margin-top: 5px; border-top: 1px solid #fca5a5; padding-top: 15px; display: inline-block; }
-        .date-info { font-size: 0.8rem; color: #b91c1c; margin-top: 8px; font-weight: 500; opacity: 0.7; }
+        /* Inventory Section */
+        .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+        .inv-item { background: #fdfdfd; padding: 10px; border-radius: 12px; border: 1px solid #eee; text-align: center; font-size: 0.9rem; }
+        .btn-s { width: 28px; height: 28px; border-radius: 5px; border: 1px solid #ddd; cursor: pointer; }
 
-        /* Dashboard Grid */
-        .section-header { font-size: 0.75rem; font-weight: 700; color: var(--sub); text-transform: uppercase; letter-spacing: 0.05em; margin: 10px 0 8px 5px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .card { background: var(--card); padding: 18px; border-radius: 18px; text-decoration: none; color: inherit; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.02); transition: all 0.2s; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .card b { display: block; font-size: 0.95rem; margin-bottom: 2px; }
-        .card small { color: var(--sub); font-size: 0.75rem; }
+        /* Generator Button */
+        .btn-generate { width: 100%; padding: 20px; border-radius: 15px; border: none; background: linear-gradient(to right, #e67e22, #d35400); color: white; font-size: 1.4rem; font-weight: bold; cursor: pointer; }
+        
+        /* Result */
+        #result { display: none; animation: slideUp 0.4s ease-out; }
+        .menu-card { text-align: center; border: 2px solid var(--accent); border-radius: 20px; overflow: hidden; margin-top: 15px; }
+        .menu-img { width: 100%; height: 220px; object-fit: cover; }
+        .lunch-tag { background: #fff3cd; color: #856404; padding: 5px 15px; border-radius: 20px; display: inline-block; font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; }
+        
+        .btn-confirm { width: 90%; padding: 15px; margin: 15px; border-radius: 12px; border: none; background: var(--secondary); color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
 
-        /* List Items */
-        .list-box { background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,0,0,0.02); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .link-item { display: flex; align-items: center; padding: 16px; text-decoration: none; color: inherit; border-bottom: 1px solid #f3f4f6; font-size: 0.9rem; font-weight: 600; }
-        .link-item:last-child { border-bottom: none; }
-        .link-item:hover { background: #f9fafb; }
-
-        /* Spiritual Footer */
-        .mantra-footer { margin-top: 30px; text-align: center; padding-top: 25px; border-top: 1px solid #e5e7eb; }
-        .pali-text { font-size: 1rem; font-weight: 600; color: #4b5563; margin-bottom: 8px; }
-        .translation { font-size: 0.75rem; color: #9ca3af; line-height: 1.6; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="countdown-card">
-        <div class="exam-label">เหลือเวลาสอบ A-LEVEL</div>
-        <div class="days-left" id="display-days">--</div>
-        <div class="final-warning">"โอกาสครั้งสุดท้าย ต่อแต่นี้ไม่มีอีก"</div>
-        <div class="date-info">ถึงวันที่ 14 มีนาคม 2569</div>
+    <div class="card">
+        <h3 style="margin-top:0">🥚 สต็อกวัตถุดิบที่มี</h3>
+        <div class="inv-grid" id="inv-list"></div>
     </div>
 
-    <div>
-        <div class="section-header">Workflow & Tools</div>
-        <div class="grid">
-            <a href="https://www.notion.so/Habit-Tracker-2224cd2afe7e80b59785df36808db63b" class="card" target="_blank"><b>Habit Tracker</b><small>วินัยรายวัน</small></a>
-            <a href="https://app.todoist.com/app/today" class="card" target="_blank"><b>Todoist</b><small>รายการวันนี้</small></a>
-            <a href="https://track.toggl.com/timer" class="card" target="_blank"><b>Toggl Track</b><small>จับเวลาจริง</small></a>
-            <a href="https://pomofocus.io/" class="card" target="_blank"><b>Pomodoro</b><small>ฝึกสมาธิ</small></a>
+    <div class="card" style="text-align: center;">
+        <button class="btn-generate" onclick="findDailyMenu()">🍳 สุ่มเมนู (เช้า + ห่อเที่ยง)</button>
+        <div id="result">
+            <div class="menu-card">
+                <img id="m-img" class="menu-img" src="">
+                <div style="padding:15px;">
+                    <div class="lunch-tag">🍱 เหมาะสำหรับห่อไปกินกลางวัน</div>
+                    <h2 id="m-name" style="margin:5px 0; color:var(--accent);"></h2>
+                    <p id="m-desc" style="font-size: 0.9rem; color: #666;"></p>
+                    <button class="btn-confirm" onclick="actionCook()">✔️ ทำแล้ว (แบ่งใส่กล่องเที่ยงด้วย!)</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div>
-        <div class="section-header">Data & Reports</div>
-        <div class="list-box">
-            <a href="https://docs.google.com/spreadsheets/d/1jbqu02Lx5ahdVY0g-1JPHbDC59N0AiqDL3IZs2PUTmI/edit?gid=1871900456#gid=1871900456" class="link-item" target="_blank">📊 รายงานผลทำโจทย์</a>
-            <a href="https://docs.google.com/spreadsheets/d/1uvwc6GFj-rrINmQufnctclxj2epMyIIQmsCRDXQbzCo/edit?gid=34336380#gid=34336380" class="link-item" target="_blank">💰 ติดตามงบประมาณ</a>
-            <a href="https://docs.google.com/spreadsheets/d/1Wfq1ToaVrnyggKOJh4in2C_mG5FzNwCkYQT6KHLj6vU/edit#gid=0" class="link-item" target="_blank">📖 ติดตามการเรียนรู้</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0yIrObGdfYoIuU02uBzAbxq9b0divesMVBSLZbOSTlM92cw/viewform" class="link-item" target="_blank">📝 ส่งผลโจทย์ (Form)</a>
-        </div>
-    </div>
-
-    <div class="mantra-footer">
-        <div class="pali-text">นะโม วิมุตตานัง นะโม วิมุตติยา</div>
-        <div class="translation">
-            ขอนอบน้อมแด่ท่านผู้หลุดพ้นแล้ว (จากกิเลส) ทั้งหลาย <br>
-            และขอนอบน้อมแด่ธรรมอันหลุดพ้น (คือพระนิพพาน)
-        </div>
+    <div class="card">
+        <h4 style="margin:0">🔄 เมนูที่เพิ่งกินไป (ไม่สุ่มซ้ำใน 7 วัน)</h4>
+        <div id="history-list" style="font-size:0.8rem; color:#888; margin-top:10px;"></div>
     </div>
 </div>
 
 <script>
-    function updateCountdown() {
-        const examDate = new Date('2026-03-14T00:00:00');
-        const now = new Date();
-        const diff = examDate - now;
-        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('display-days').innerText = diff > 0 ? days + " วัน" : "D-DAY";
-    }
-    updateCountdown();
-</script>
+    // วัตถุดิบเริ่มต้น
+    const materials = [
+        { id: 'pork', name: 'หมูชิ้น/สับ', qty: 500, unit: 'ก.' },
+        { id: 'chicken', name: 'เนื้อไก่', qty: 300, unit: 'ก.' },
+        { id: 'egg', name: 'ไข่ไก่', qty: 10, unit: 'ฟอง' },
+        { id: 'kale', name: 'ผักคะน้า', qty: 200, unit: 'ก.' },
+        { id: 'longbean', name: 'ถั่วฝักยาว', qty: 100, unit: 'ก.' },
+        { id: 'curry', name: 'พริกแกง', qty: 50, unit: 'ก.' },
+        { id: 'rice', name: 'ข้าวสวย', qty: 1000, unit: 'ก.' }
+    ];
 
+    // เมนูที่เน้น "อยู่ท้อง" และ "ห่อไปกินได้ดี"
+    const masterMenus = [
+        { name: 'ผัดพริกแกงหมูใส่ถั่ว', ings: [{id:'pork', req:150}, {id:'longbean', req:50}, {id:'curry', req:10}, {id:'rice', req:400}], desc: 'รสจัดจ้าน บูดยาก เหมาะกับห่อเที่ยงสุดๆ', img: 'https://img.wongnai.com/p/1920x0/2021/03/17/8e7f8646b95c4784a95e7c8e7f8646b9.jpg' },
+        { name: 'ไก่ผัดกระเทียมพริกไทย', ings: [{id:'chicken', req:150}, {id:'rice', req:400}], desc: 'เมนูอมตะ แห้งและหอม รสชาติไม่เปลี่ยนแม้เย็นแล้ว', img: 'https://img.wongnai.com/p/1920x0/2017/09/25/363f0d4669864205886369c7f212f0e0.jpg' },
+        { name: 'คะน้าหมูชิ้นราดข้าว', ings: [{id:'pork', req:100}, {id:'kale', req:100}, {id:'rice', req:400}], desc: 'ได้วิตามินจากผัก ผัดแบบน้ำขลุกขลิกไม่หกเลอะเทอะ', img: 'https://img.wongnai.com/p/1920x0/2018/06/15/8e104043130d4a79899f8e4e1a052303.jpg' },
+        { name: 'ไข่เจียวหมูสับหนาๆ', ings: [{id:'egg', req:3}, {id:'pork', req:50}, {id:'rice', req:400}], desc: 'ทำง่ายและเร็ว แบ่งครึ่งห่อไปกินเที่ยงสะดวกมาก', img: 'https://img.wongnai.com/p/1920x0/2020/01/21/2e5c8e0a3e8e4f5a9e3e9d8e4f5a9e3e.jpg' }
+    ];
+
+    let inventory = JSON.parse(localStorage.getItem('lunch_inv')) || materials;
+    let history = JSON.parse(localStorage.getItem('lunch_his')) || [];
+    let selected = null;
+
+    function render() {
+        document.getElementById('inv-list').innerHTML = inventory.map(item => `
+            <div class="inv-item">
+                <b>${item.name}</b><br>
+                <div style="margin:5px 0">
+                    <button class="btn-s" onclick="updateStk('${item.id}', -50)">-</button>
+                    <span style="display:inline-block; width:45px">${item.qty}</span>
+                    <button class="btn-s" onclick="updateStk('${item.id}', 50)">+</button>
+                </div>
+                <small>${item.unit}</small>
+            </div>
+        `).join('');
+
+        document.getElementById('history-list').innerHTML = history.slice(-7).reverse().map(h => `• ${h.name}`).join(' | ') || 'ยังไม่มีข้อมูล';
+        localStorage.setItem('lunch_inv', JSON.stringify(inventory));
+        localStorage.setItem('lunch_his', JSON.stringify(history));
+    }
+
+    function updateStk(id, val) {
+        const i = inventory.find(x => x.id === id);
+        if(i) { i.qty = Math.max(0, i.qty + (i.unit === 'ฟอง' ? val/50 : val)); render(); }
+    }
+
+    function findDailyMenu() {
+        // กรองเฉพาะเมนูที่มีวัตถุดิบพอ (รวม 2 มื้อ)
+        let possible = masterMenus.filter(m => m.ings.every(req => {
+            const stk = inventory.find(s => s.id === req.id);
+            return stk && stk.qty >= req.req;
+        }));
+
+        // กรองเมนูไม่ซ้ำใน 7 ครั้งล่าสุด
+        const last7 = history.slice(-7).map(h => h.name);
+        let nonRepeat = possible.filter(m => !last7.includes(m.name));
+        
+        let pool = nonRepeat.length > 0 ? nonRepeat : possible;
+
+        if(pool.length === 0) return alert('วัตถุดิบไม่พอสำหรับทำ 2 มื้อครับ!');
+
+        selected = pool[Math.floor(Math.random() * pool.length)];
+        document.getElementById('m-name').innerText = selected.name;
+        document.getElementById('m-img').src = selected.img;
+        document.getElementById('m-desc').innerText = selected.desc;
+        document.getElementById('result').style.display = 'block';
+    }
+
+    function actionCook() {
+        selected.ings.forEach(req => {
+            const stk = inventory.find(s => s.id === req.id);
+            if(stk) stk.qty -= req.req;
+        });
+        history.push({ name: selected.name, date: new Date().getTime() });
+        document.getElementById('result').style.display = 'none';
+        render();
+        alert('บันทึกแล้ว! อย่าลืมตักแบ่งใส่กล่องไปกินที่ทำงานด้วยนะ!');
+    }
+
+    render();
+</script>
 </body>
 </html>
